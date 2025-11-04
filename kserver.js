@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const cors = require('cors');
-const bcrpyt = require('bcrpyt');
+
+//bcrypt
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sys = require('sys');
 const requestIp = require('request-ip');
@@ -129,7 +131,7 @@ app.post('/signin', (req, res, next) => {
     name: req.body.name,
     dept: req.body.dept,
     email: req.body.email,
-    password: bcrpyt.hashSync(req.body.password, 10)
+    password: bcrypt.hashSync(req.body.password, 10)
   });
   //console.log(req.body)
   //console.log(newUser)
@@ -153,7 +155,7 @@ app.post('/signin3', (req, res, next) => {
     userid: req.body.email.split('@')[0],
     name: req.body.name,
     email: req.body.email,
-    password: bcrpyt.hashSync(req.body.password, 10)
+    password: bcrypt.hashSync(req.body.password, 10)
   });
 
   console.log(req.body);
@@ -186,7 +188,7 @@ app.post('/login', (req, res, next) => {
       }
 
       //incorrect password
-      if (!bcrpyt.compareSync(req.body.password, user.password)) {
+      if (!bcrypt.compareSync(req.body.password, user.password)) {
         return res.status(401).json({
           title: 'login failed',
           error: 'invalid credentials'
