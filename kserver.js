@@ -34,7 +34,12 @@ app.use(cors());
 //cluster0.vzxwykq.mongodb.net
 
 mongoose
-  .connect('mongodb+srv://winaki:ghwnsl0705$$@cluster0.vzxwykq.mongodb.net/winaki802?retryWrites=true&w=majority')
+  .connect('mongodb+srv://winaki:ghwnsl0705$$@cluster0.vzxwykq.mongodb.net/winaki802?retryWrites=true&w=majority', {
+      readPreference: 'primary',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+  })
   .then(() => {
     console.log('Connected to Database');
   })
@@ -106,11 +111,8 @@ app.get("/p/:id", async (req, res) => {
   try {
 
 
-    //const km = await kakaoMsgAl.findById(id).lean();
-    const km = await kakaoMsgAl.findOne({mid : id})
-
-    console.log('title:', km.description);
-
+    //const km = await kakaoMsgAl.findOne({mid : id})
+    const data = await kakaoMsgAl.findOne({ mid: id }).lean();
 
     if(!km) {
       return res.status(404).send("kakao message Not Found ");
