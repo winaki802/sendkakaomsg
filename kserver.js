@@ -112,7 +112,11 @@ app.get("/p/:id", async (req, res) => {
 
 
     //const km = await kakaoMsgAl.findOne({mid : id})
-    const data = await kakaoMsgAl.findOne({ mid: id }).lean();
+    //const data = await kakaoMsgAl.findOne({ mid: id }).lean();
+    const km = await kakaoMsgAl.findOne({ mid: id })
+    .read('primary')       // ✅ 항상 Primary 노드에서 읽기
+    .lean()                // ✅ Wrapper 캐시 방지
+    .exec();               // ✅ 즉시 실행
 
     if(!km) {
       return res.status(404).send("kakao message Not Found ");
