@@ -13,6 +13,7 @@ const requestIp = require('request-ip');
 const iconv = require('iconv-lite');
 const multer = require('multer');
 const fs = require('fs'); //폴더 생성할때
+const axios = require('axios');
 
 // const PopList = require('./PopList');
 // const PostList = require('./PostList');
@@ -68,6 +69,30 @@ app.get('/', (req, res, next) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+// ✅ 헬스 체크용 라우트 (Render Keep-Alive)
+app.get('/health', (req, res) => {
+
+  res.status(200).json({
+    status : 'ok',
+    message : 'Server is alive',
+    time: new Date(),
+  });
+});
+
+function keepAlive() {
+
+  setInterval(async () => {
+    try {
+      await axios.get('https://send-kakao-msg.onrender.com/health');
+      console.log('keep alive ping send');
+    } catch (err) {
+      console.error('keep alive ping failed', err.message);
+    }
+  }, 10*60*1000);
+}
+
+keepAlive();
 
 // ✅ 라우트
 app.get("/p/:id", async (req, res) => {
