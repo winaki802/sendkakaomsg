@@ -5,6 +5,7 @@
   "main": "kserver.js",
   "dependencies": {    
     "bcrypt": "^5.1.1",
+    "axios": "^1.5.0",
     "cors": "^2.8.5",
     "date-utils": "^1.2.21",
     "dayjs": "^1.11.9",
