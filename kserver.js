@@ -84,7 +84,7 @@ function keepAlive() {
 
   setInterval(async () => {
     try {
-      await axios.get('https://send-kakao-msg.onrender.com/health');
+      await axios.get('https://km.onrender.com/health');
       console.log('keep alive ping send');
     } catch (err) {
       console.error('keep alive ping failed', err.message);
