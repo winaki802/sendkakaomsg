@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const cors = require('cors');
-const bcrpyt = require('bcrypt');
+const bcrpyt = require('bcrpyt');
 const jwt = require('jsonwebtoken');
 const sys = require('sys');
 const requestIp = require('request-ip');
