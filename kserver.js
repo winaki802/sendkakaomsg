@@ -132,7 +132,7 @@ app.get("/p/:id", async (req, res) => {
           <meta property="og:title" content="${km.title}"/>
           <meta property="og:description" content="${km.description}"/>
           <meta property="og:image" content="${km.image}" />
-          <meta property="og:url" content="${km.url}" />
+          <meta property="og:url" content="${km.url2}" />
           <meta property="og:type" content="website"/>
           <title>${km.title}</title>
         </head>
